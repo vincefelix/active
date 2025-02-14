@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 import argparse
 import socket
 import sys
@@ -18,7 +16,7 @@ def scan_port(host, port, udp=False):
     Retourne un tuple (port, status, service) si le scan a pu être effectué,
     sinon None en cas d'erreur.
     """
-    sock = None  # Initialisation pour le bloc finally
+    sock = None 
     try:
         port = int(port)
         if port < 1 or port > 65535:
@@ -32,7 +30,7 @@ def scan_port(host, port, udp=False):
             sock.settimeout(1)
             sock.sendto(b"", (host, port))
             try:
-                sock.recvfrom(1024)  # Essaye de recevoir une réponse
+                sock.recvfrom(1024)  
                 status = "open"
             except socket.timeout:
                 status = "closed"
@@ -77,7 +75,7 @@ def parse_ports(port_arg):
 def main():
     parser = argparse.ArgumentParser(
         description="Simple Port Scanner",
-        usage="tinyscanner [OPTIONS] [HOST] [PORT]"
+        usage="python tinyscanner.py [OPTIONS] [HOST] [PORT]"
     )
     parser.add_argument("host", type=str, help="L'adresse IP ou le nom d'hôte à scanner")
     parser.add_argument("-p", "--port", required=True,
