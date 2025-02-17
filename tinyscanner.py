@@ -74,7 +74,7 @@ def parse_ports(port_arg):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Simple Port Scanner",
+        description="Port Scanner",
         usage="python tinyscanner.py [OPTIONS] [HOST] [PORT]"
     )
     parser.add_argument("host", type=str, help="L'adresse IP ou le nom d'hôte à scanner")
@@ -120,7 +120,7 @@ def main():
         finally:
             executor.shutdown(wait=False)
     else:
-        # Scan séquentiel
+        # Scan port par port
         try:
             for port in ports:
                 result = scan_port(args.host, port, udp=args.udp)
@@ -132,7 +132,7 @@ def main():
             print("\nSignal received. Aborting scan...")
             sys.exit(1)
 
-    # Résumé final : affichage des ports ouverts avec leur service
+    # affichage des ports ouverts avec leur service
     open_ports = [(port, service) for port, status, service in results if status == "open"]
     if open_ports:
         summary = "\n".join([f"{port} ({service})" for port, service in open_ports])
